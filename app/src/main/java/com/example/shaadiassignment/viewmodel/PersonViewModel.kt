@@ -28,6 +28,7 @@ class PersonViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getData(){
         if (checkInternet()) {
+            Toast.makeText(getApplication(),"Fetching data...",Toast.LENGTH_SHORT).show()
             val serverCall = ServerCall<Example>()
             serverCall.execute(repository?.getData(), DefaultSubscriber<Example>(object : APICallback<Example> {
                 override fun onSuccess(t: Example) {
