@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="data" type="com.example.shaadiassignment.model_classes.Result"/>
+        <variable name="position" type="Integer"/>
+        <variable name="viewModel" type="com.example.shaadiassignment.viewmodel.PersonViewModel"/>
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:elevation="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/thumbnai"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="W,1:1"
+            android:background="@drawable/rounded_corners"
+            bind:viewModel="@{viewModel}"
+            bind:url="@{data.picture.large}"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/name"
+            app:layout_constraintBottom_toTopOf="@id/address"
+            app:layout_constraintStart_toStartOf="@id/padding_start_guideline"
+            android:textColor="#FFFFFF"
+            android:text="@{data.name.title+` `+data.name.first+` `+data.name.last}"
+            android:textStyle="bold"
+            android:textSize="25sp"
+    />
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/address"
+            app:layout_constraintBottom_toTopOf="@id/gender"
+            app:layout_constraintStart_toStartOf="@id/padding_start_guideline"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:text="@{data.location.city+`, `+data.location.country}"
+    />
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/gender"
+            app:layout_constraintBottom_toTopOf="@id/random"
+            app:layout_constraintStart_toStartOf="@id/padding_start_guideline"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:text="@{data.gender+` | `+`age: `+data.dob.age}"
+    />
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/random"
+            app:layout_constraintBottom_toTopOf="@id/padding_bottom_guideline"
+            app:layout_constraintStart_toStartOf="@id/padding_start_guideline"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:text="@{data.cell+` | `+data.email}"
+    />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/accept"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/reject"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="#00e600"
+            android:textColor="#FFFFFF"
+            android:paddingHorizontal="40dp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="10dp"
+            android:tag="accept"
+            android:onClick="@{()->viewModel.update(position,`1`)}"
+            android:drawableLeft="@drawable/check_white"
+            bind:visibility="@{data.status}"
+            android:text="@{data.status.equals(`1`)?`Request Accepted`:`Accept`}"
+    />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/reject"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/accept"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="#ff1a1a"
+            android:textColor="#FFFFFF"
+            android:paddingHorizontal="40dp"
+            android:textAllCaps="false"
+            android:tag="reject"
+            android:layout_marginBottom="10dp"
+            android:drawableLeft="@drawable/clear_white"
+            android:onClick="@{()->viewModel.update(position,`2`)}"
+            bind:visibility="@{data.status}"
+            android:text="@{data.status.equals(`2`)?`Request Denied`:`Reject`}"
+    />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/padding_start_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/padding_bottom_guideline"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="50dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
