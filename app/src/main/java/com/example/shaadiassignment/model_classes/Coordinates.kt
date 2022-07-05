@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 class Coordinates {
 
-    @SerializedName("latitude")
+    @SerializedName("latitudeeeeeeee")
     @Expose
     var latitude: String? = null
     @SerializedName("longitude")
